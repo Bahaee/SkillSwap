@@ -39,6 +39,12 @@
             <td th:text="${u.name}"></td>
             <td th:text="${u.address}"></td>
             <td th:text="${u.dateOfBirth}"></td>
+            <td>
+              <a onclick="return confirm('Are You Sure')" class="btn btn-danger"
+                  th:href="@{delete(id=${u.id}, keyword=${keyword}, page=${currentPage})}">
+                <i class="bi bi-pencil">DELETE</i>
+              </a>
+            </td>
           </tr>
           </tbody>
         </table>
@@ -46,7 +52,7 @@
           <li th:each="page,status:${pages}">
             <a
                 th:class="${status.index==currentPage ? 'btn btn-info ms-1' : 'btn btn-outline-info ms-1'}"
-                th:href="@{index(page=${status.index})}"
+                th:href="@{index(page=${status.index},keyword=${keyword})}"
                 th:text="${status.index}"
             >
             </a>

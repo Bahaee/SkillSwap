@@ -50,4 +50,12 @@ public class UserController {
     model.addAttribute("keyword", kw);
     return "users";
   }
+
+  @GetMapping("/delete")
+  public String deleteUser(@RequestParam(name = "id") Long id, String keyword, int page){
+    userRepository.deleteById(id);
+    return "redirect:/index?page="+page+"&keyword="+keyword;
+  }
+
+
 }
