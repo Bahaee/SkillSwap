@@ -2,6 +2,7 @@ package com.example.basics;
 
 import com.example.basics.entities.User;
 import jakarta.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,9 +25,9 @@ public class BasicsApplication implements CommandLineRunner{
   @Transactional
   @Override
   public void run(String... args) throws Exception {
-    userRepository.save(new User(null,"Mohamed","Agdal Rabat",null, null, null));
-    userRepository.save(new User(null,"Sadik","Ben Slimane Rabat",null, null, null));
-    userRepository.save(new User(null,"Toubil","Valo Casa",null, null, null));
+    userRepository.save(new User(null,"Mohamed","Agdal Rabat",new Date(),null, null, null));
+    userRepository.save(new User(null,"Sadik","Ben Slimane Rabat",new Date(),null, null, null));
+    userRepository.save(new User(null,"Toubil","Valo Casa",new Date(),null, null, null));
 
     List<User> users =userRepository.findAll();
     users.forEach(u->{

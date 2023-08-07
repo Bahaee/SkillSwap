@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Users Management</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+
+  <div class="container mt-3">
+    <div class="card">
+      <div class="card-header">List of Users</div>
+      <div class="card-body">
+        <form method="get" th:href="@{index}">
+          <ul class="nav nav-pills">
+            <li>
+              <label class="form-label">Keyword :</label>
+            </li>
+            <li>
+              <input type="text" class="form-control" name="keyword" th:value="${keyword}">
+            </li>
+            <li>
+              <button class="btn btn-info">
+                <i class="bi bi-search">Search</i>
+              </button>
+            </li>
+          </ul>
+        </form>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Id</th><th>Name</th><th>Address</th><th>Date of Birth</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="u:${listUsers}">
+            <td th:text="${u.id}"></td>
+            <td th:text="${u.name}"></td>
+            <td th:text="${u.address}"></td>
+            <td th:text="${u.dateOfBirth}"></td>
+          </tr>
+          </tbody>
+        </table>
+        <ul class="nav nav-pills">
+          <li th:each="page,status:${pages}">
+            <a
+                th:class="${status.index==currentPage ? 'btn btn-info ms-1' : 'btn btn-outline-info ms-1'}"
+                th:href="@{index(page=${status.index})}"
+                th:text="${status.index}"
+            >
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

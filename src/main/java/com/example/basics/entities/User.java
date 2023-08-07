@@ -6,7 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotEmpty;
+import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,11 +22,15 @@ public class User {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @NotEmpty
   private String name;
 
   @NotEmpty
   private String address;
+
+  @Temporal(TemporalType.DATE)
+  private Date dateOfBirth;
 
   @OneToMany(mappedBy = "user")
   private List<Competence> competences;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.basics.repository.UserRepository;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class UserController {
 
   @Autowired
@@ -24,7 +24,7 @@ public class UserController {
     return userRepository.findAll();
   }
 
-  @GetMapping("/index")
+  @GetMapping("/indexes")
   public String index(Model model,
       @RequestParam(name = "page",defaultValue = "0") int page,
       @RequestParam(name = "size",defaultValue = "5") int size,
@@ -35,6 +35,19 @@ public class UserController {
     model.addAttribute("pages",new int[pageUsers.getTotalPages()]);
     model.addAttribute("currentPage",page);
     model.addAttribute("keyword",kw);
+    return "users";
+  }
+
+  @GetMapping(path="/index")
+  public String test(Model model,
+      @RequestParam(name = "page", defaultValue = "0") int page,
+      @RequestParam(name = "size", defaultValue = "6") int size,
+      @RequestParam(name = "keyword", defaultValue = "") String kw){
+    Page<User> pageUsers = userRepository.findByNameContains(kw, PageRequest.of(page,size));
+    model.addAttribute("listUsers", pageUsers.getContent());
+    model.addAttribute("pages", new int[pageUsers.getTotalPages()]);
+    model.addAttribute("currentPage", page);
+    model.addAttribute("keyword", kw);
     return "users";
   }
 }
