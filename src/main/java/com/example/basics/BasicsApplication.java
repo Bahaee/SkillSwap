@@ -25,7 +25,7 @@ public class BasicsApplication implements CommandLineRunner{
   @Transactional
   @Override
   public void run(String... args) throws Exception {
-    userRepository.save(new User(null,"Mohamed","Agdal Rabat",new Date(),null, null, null));
+    /*userRepository.save(new User(null,"Mohamed","Agdal Rabat",new Date(),null, null, null));
     userRepository.save(new User(null,"Sadik","Ben Slimane Rabat",new Date(),null, null, null));
     userRepository.save(new User(null,"Toubil","Valo Casa",new Date(),null, null, null));
 
@@ -46,6 +46,6 @@ public class BasicsApplication implements CommandLineRunner{
     List<User> userList2 = userRepository.search("%M%");
     userList2.forEach(u->{
       System.out.println(u);
-    });
+    });*/
   }
 }

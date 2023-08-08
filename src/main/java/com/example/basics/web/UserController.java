@@ -2,6 +2,7 @@ package com.example.basics.web;
 
 
 import com.example.basics.entities.User;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner.Mode;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,9 +68,10 @@ public class UserController {
   }
 
   @PostMapping("/saveUser")
-  public String saveUser(Model model, User user){
+  public String saveUser(Model model,@Valid User user, BindingResult bindingResult){
+    if (bindingResult.hasErrors()) return "formUser";
     userRepository.save(user);
-    return "formUser";
+    return "redirect:/formUser";
   }
 
   @GetMapping("/")
