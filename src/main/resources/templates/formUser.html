@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+<head>
+  <meta charset="UTF-8">
+  <title>Users Forms</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/webjars/bootstrap-icons/1.10.3/font/bootstrap-icons.css">
+  <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+  <div layout:fragment="content">
+    <div class="p-3">
+      <form method="post" th:action="@{saveUser}">
+        <div class="mb-3 mt-3">
+          <label for="name" class="form-label">Name :</label>
+          <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+          <span class="text-danger" th:errors="${user.name}" th:value="${user.name}"></span>
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="address" class="form-label">Address :</label>
+          <input type="text" class="form-control" id="address" placeholder="Address" name="address">
+          <span class="text-danger" th:errors="${user.address}" th:value="${user.address}"></span>
+        </div>
+        <div class="mb-3">
+          <label for="dateOfBirth" class="form-label">Date Naissance:</label>
+          <input type="date" class="form-control" id="dateOfBirth" placeholder="Date Of Birthday"
+                 name="dateOfBirth" th:value="${user.dateOfBirth}">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

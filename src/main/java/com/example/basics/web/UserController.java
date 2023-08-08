@@ -4,11 +4,13 @@ package com.example.basics.web;
 import com.example.basics.entities.User;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner.Mode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.example.basics.repository.UserRepository;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,5 +59,21 @@ public class UserController {
     return "redirect:/index?page="+page+"&keyword="+keyword;
   }
 
+  @GetMapping("/formUser")
+  public String formUser(Model model){
+    model.addAttribute("user",new User());
+    return "formUser";
+  }
+
+  @PostMapping("/saveUser")
+  public String saveUser(Model model, User user){
+    userRepository.save(user);
+    return "formUser";
+  }
+
+  @GetMapping("/")
+  public String home(){
+    return "redirect:/index";
+  }
 
 }
