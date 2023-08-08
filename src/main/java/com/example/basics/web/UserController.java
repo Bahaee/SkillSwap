@@ -28,19 +28,6 @@ public class UserController {
     return userRepository.findAll();
   }
 
-  @GetMapping("/indexes")
-  public String index(Model model,
-      @RequestParam(name = "page",defaultValue = "0") int page,
-      @RequestParam(name = "size",defaultValue = "5") int size,
-      @RequestParam(name = "keyword",defaultValue = "") String kw
-  ){
-    Page<User> pageUsers = userRepository.findByNameContains(kw, PageRequest.of(page,size));
-    model.addAttribute("listUsers",pageUsers.getContent());
-    model.addAttribute("pages",new int[pageUsers.getTotalPages()]);
-    model.addAttribute("currentPage",page);
-    model.addAttribute("keyword",kw);
-    return "users";
-  }
 
   @GetMapping(path="/index")
   public String test(Model model,
@@ -68,12 +55,21 @@ public class UserController {
   }
 
   @PostMapping("/saveUser")
-  public String saveUser(Model model,@Valid User user, BindingResult bindingResult){
+  public String saveUser(Model model,
+      @Valid User user,
+      BindingResult bindingResult,
+      @RequestParam(name = "page", defaultValue = "0") int page,
+      @RequestParam(name = "keyword", defaultValue = "") String kw ){
     if (bindingResult.hasErrors()) return "formUser";
     userRepository.save(user);
-    return "redirect:/formUser";
+    return "redirect:/index?page"+page+"&keyword"+kw;
   }
 
+  @GetMapping("/edit")
+  public String editUser(Model model, Long id){
+    model.addAttribute("user", userRepository.findById(id).get());
+    return "editUser";
+  }
   @GetMapping("/")
   public String home(){
     return "redirect:/index";

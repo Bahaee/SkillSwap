@@ -45,7 +45,13 @@
               <td>
                 <a onclick="return confirm('Are You Sure')" class="btn btn-danger"
                     th:href="@{delete(id=${u.id}, keyword=${keyword}, page=${currentPage})}">
-                  <i class="bi bi-pencil">DELETE</i>
+                  <i class="bi bi-trash3 ms-1">DELETE</i>
+                </a>
+              </td>
+              <td>
+                <a class="btn btn-success"
+                   th:href="@{edit(id=${u.id}, keyword=${keyword}, page=${currentPage})}">
+                  <i class="bi bi-pen ms-1">EDIT</i>
                 </a>
               </td>
             </tr>
