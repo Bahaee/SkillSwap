@@ -14,7 +14,7 @@
 
 <div layout:fragment="content">
   <div class="p-3">
-    <form method="post" th:action="@{saveUser(page=${page},keyword=${keyword})}">
+    <form method="post" th:action="@{/admin/saveUser(page=${page},keyword=${keyword})}">
       <div class="mb-3 mt-3">
         <label for="id" class="form-label">ID :</label>
         <label class="form-label" th:text="${user.id}"></label>

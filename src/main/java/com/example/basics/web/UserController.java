@@ -29,7 +29,7 @@ public class UserController {
   }
 
 
-  @GetMapping(path="/index")
+  @GetMapping(path="/user/index")
   public String test(Model model,
       @RequestParam(name = "page", defaultValue = "0") int page,
       @RequestParam(name = "size", defaultValue = "6") int size,
@@ -42,19 +42,19 @@ public class UserController {
     return "users";
   }
 
-  @GetMapping("/delete")
+  @GetMapping("/admin/delete")
   public String deleteUser(@RequestParam(name = "id") Long id, String keyword, int page){
     userRepository.deleteById(id);
-    return "redirect:/index?page="+page+"&keyword="+keyword;
+    return "redirect:/user/index?page="+page+"&keyword="+keyword;
   }
 
-  @GetMapping("/formUser")
+  @GetMapping("/admin/formUser")
   public String formUser(Model model){
     model.addAttribute("user",new User());
     return "formUser";
   }
 
-  @PostMapping("/saveUser")
+  @PostMapping("/admin/saveUser")
   public String saveUser(Model model,
       @Valid User user,
       BindingResult bindingResult,
@@ -62,17 +62,17 @@ public class UserController {
       @RequestParam(name = "keyword", defaultValue = "") String kw ){
     if (bindingResult.hasErrors()) return "formUser";
     userRepository.save(user);
-    return "redirect:/index?page"+page+"&keyword"+kw;
+    return "redirect:/user/index?page"+page+"&keyword"+kw;
   }
 
-  @GetMapping("/edit")
+  @GetMapping("/admin/edit")
   public String editUser(Model model, Long id){
     model.addAttribute("user", userRepository.findById(id).get());
     return "editUser";
   }
   @GetMapping("/")
   public String home(){
-    return "redirect:/index";
+    return "redirect:/user/index";
   }
 
 }

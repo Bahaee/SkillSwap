@@ -29,7 +29,9 @@
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Users</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/">List Users</a></li>
-            <li><a class="dropdown-item" href="/formUser">Add User</a></li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+              <a class="dropdown-item" href="/admin/formUser">Add User</a>
+            </li>
           </ul>
         </li>
       </ul>
@@ -39,8 +41,9 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/">Settings</a></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
-
+            <form method="post" th:action="@{/logout}">
+              <button class="dropdown-item" type="submit">Logout</button>
+            </form>
           </ul>
         </li>
       </ul>

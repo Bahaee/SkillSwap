@@ -15,7 +15,7 @@
       <div class="card">
         <div class="card-header">List of Users</div>
         <div class="card-body">
-          <form method="get" th:href="@{index}">
+          <form method="get" th:href="@{/user/index}">
             <ul class="nav nav-pills">
               <li>
                 <label class="form-label">Keyword :</label>
@@ -42,15 +42,15 @@
               <td th:text="${u.name}"></td>
               <td th:text="${u.address}"></td>
               <td th:text="${u.dateOfBirth}"></td>
-              <td>
-                <a onclick="return confirm('Are You Sure')" class="btn btn-danger"
-                    th:href="@{delete(id=${u.id}, keyword=${keyword}, page=${currentPage})}">
+              <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a onclick="return confirm('Are You Sure ?')" class="btn btn-danger"
+                    th:href="@{/admin/delete(id=${u.id}, keyword=${keyword}, page=${currentPage})}">
                   <i class="bi bi-trash3 ms-1">DELETE</i>
                 </a>
               </td>
-              <td>
+              <td th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
                 <a class="btn btn-success"
-                   th:href="@{edit(id=${u.id}, keyword=${keyword}, page=${currentPage})}">
+                   th:href="@{/admin/edit(id=${u.id}, keyword=${keyword}, page=${currentPage})}">
                   <i class="bi bi-pen ms-1">EDIT</i>
                 </a>
               </td>
@@ -61,7 +61,7 @@
             <li th:each="page,status:${pages}">
               <a
                   th:class="${status.index==currentPage ? 'btn btn-info ms-1' : 'btn btn-outline-info ms-1'}"
-                  th:href="@{index(page=${status.index},keyword=${keyword})}"
+                  th:href="@{/user/index(page=${status.index},keyword=${keyword})}"
                   th:text="${status.index}"
               >
               </a>
