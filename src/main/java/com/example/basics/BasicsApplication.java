@@ -1,6 +1,7 @@
 package com.example.basics;
 
 import com.example.basics.entities.User;
+import com.example.basics.security.services.AccountService;
 import jakarta.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,21 @@ public class BasicsApplication implements CommandLineRunner{
   @Bean
   PasswordEncoder passwordEncoder(){
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  CommandLineRunner commandLineRunner(AccountService accountService){
+    return args -> {
+      accountService.addNewRole("USER");
+      accountService.addNewRole("ADMIN");
+      accountService.addNewUser("Bahae", "1234", "bahae@gmail.com", "1234");
+      accountService.addNewUser("Riyad", "1234", "riyad@gmail.com", "1234");
+      accountService.addNewUser("Mouna", "1234", "mouna@gmail.com", "1234");
+      accountService.addRoleToUser("bahae", "USER");
+      accountService.addRoleToUser("riyad", "USER");
+      accountService.addRoleToUser("mouna", "USER");
+      accountService.addRoleToUser("mouna", "ADMIN");
+    };
   }
 
   @Transactional
